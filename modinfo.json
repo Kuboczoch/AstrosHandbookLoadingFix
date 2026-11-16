@@ -4,9 +4,9 @@
   "name": "Astro's Handbook Loading Fix",
   "authors": ["astroval0"],
   "description": "stops the handbook from freezing the game when you open it",
-  "version": "1.0.0",
+  "version": "1.0.1-pre.1",
   "side": "Client",
   "dependencies": {
-    "game": "1.22.0"
+    "game": "1.22.7"
   }
 }

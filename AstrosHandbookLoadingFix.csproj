@@ -10,6 +10,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Remove="tests/**/*.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Reference Include="VintagestoryAPI">
             <HintPath>$(VintageStoryDir)\VintagestoryAPI.dll</HintPath>
             <Private>false</Private>
@@ -37,7 +41,7 @@
         <None Update="assets\**\*" CopyToOutputDirectory="PreserveNewest"/>
     </ItemGroup>
 
-    <Target Name="InstallMod" AfterTargets="Build">
+    <Target Name="InstallMod" AfterTargets="Build" Condition="'$(InstallMod)' == 'true'">
         <ItemGroup>
             <ModAssets Include="$(TargetDir)assets\**\*"/>
         </ItemGroup>
@@ -45,7 +49,7 @@
         <Copy SourceFiles="@(ModAssets)" DestinationFolder="$(ModInstallDir)\assets\%(RecursiveDir)"/>
     </Target>
 
-    <Target Name="PackageMod" AfterTargets="InstallMod" Condition="'$(Configuration)' == 'Release'">
+    <Target Name="PackageMod" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
         <PropertyGroup>
             <PackageDir>$(MSBuildProjectDirectory)\$(IntermediateOutputPath)package\</PackageDir>
             <ReleaseZip>$(MSBuildProjectDirectory)\bin\$(MSBuildProjectName)-$(Version).zip</ReleaseZip>

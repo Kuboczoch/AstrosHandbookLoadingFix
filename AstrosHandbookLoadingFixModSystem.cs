@@ -26,7 +26,17 @@ public class AstrosHandbookLoadingFixModSystem : ModSystem
     {
         //Mod.Logger.Notification("woooooo im a ghooooost boooooo");
         harmony = new Harmony(Mod.Info.ModID);
-        harmony.PatchAll(typeof(AstrosHandbookLoadingFixModSystem).Assembly);
+        try
+        {
+            harmony.PatchAll(typeof(AstrosHandbookLoadingFixModSystem).Assembly);
+        }
+        catch
+        {
+            // Strict compatibility checks must not leave a partially patched client.
+            harmony.UnpatchAll(Mod.Info.ModID);
+            harmony = null;
+            throw;
+        }
     }
 
     /// <summary>
@@ -34,6 +44,7 @@ public class AstrosHandbookLoadingFixModSystem : ModSystem
     /// </summary>
     public override void Dispose()
     {
+        HandbookPageLoader.DisposeAll();
         harmony?.UnpatchAll(Mod.Info.ModID);
     }
 }

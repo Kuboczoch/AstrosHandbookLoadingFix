@@ -1,0 +1,4 @@
+{
+  "loading": "Loading items… {0} pages ready; results incomplete",
+  "failed": "Item loading failed; results incomplete (see client log)"
+}
